@@ -42,3 +42,37 @@ butt round square
 ```
 
 ### lineJoin
+
+图形中两线段连接处所显示的样子
+
+```
+mitter 默认 尖角
+round 圆角
+bevel 平角
+```
+
+#### miterLimit
+
+设定外延交点与连接点的最大距离，如果交点距离大于此值，连接效果会变成了 bevel（斜接限定值默认为 10.0，这将会去除所有小于大约 11 度的斜接）
+
+```
+    ctx.miterLimit = 1.0;
+```
+
+![demo](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors/canvas_miterlimit.png)
+
+### 虚线动画
+
+```js
+Common.drawDash(ctx, { animate: true }, () => {
+    ctx.clearRect(0, 0, width, height)
+
+    ctx.beginPath()
+    ctx.moveTo(0, 50)
+
+    ctx.lineTo(25, 25)
+    ctx.lineTo(50, 50)
+    ctx.lineTo(75, 25)
+    ctx.stroke()
+})
+```

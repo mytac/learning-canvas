@@ -89,4 +89,37 @@ const createCurve = (ctx, opts) =>
         }
     })
 
-export { createPath, createArc, createCurve }
+/**
+ * 画虚线
+ * @param {*} ctx
+ * @param {*} opts
+ * @returns
+ */
+const drawDash = (ctx, opt = {}, drawfunc = () => {}) => {
+    // width 实线线段的宽度，space线段中缝隙距离
+    const { width = 1, space = 5, offset = 1, animate = false } = opt
+    let off = offset
+
+    function draw() {
+        ctx.setLineDash([width, space])
+        ctx.lineDashOffset = -off
+        drawfunc()
+    }
+
+    function march() {
+        off++
+        if (off > 5) {
+            off = 0
+        }
+        draw()
+        setTimeout(march, 200)
+    }
+
+    if (animate) {
+        march()
+    }
+    draw()
+    return ctx
+}
+
+export { createPath, createArc, createCurve, drawDash }
